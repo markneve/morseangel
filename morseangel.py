@@ -90,7 +90,8 @@ class MplTimeCanvas(FigureCanvasQTAgg):
         self.axes.set_xlim(0, nsamples)
         if self.time_line:
             while (len(self.axes.lines) > 0):
-                self.axes.lines.pop(0)
+                self.axes.lines[0].remove()
+                #self.axes.lines.pop(0)
         self.zline0 = None
         self.zline1 = None
         self.time_line, = self.axes.plot(self.time_vect, np.ones_like(self.time_vect)/2, color="yellow", alpha=0.8)
@@ -147,7 +148,8 @@ class MplPredCanvas(FigureCanvasQTAgg):
             self.lines[i] = np.roll(self.lines[i], -xmax, axis=0)
             self.lines[i][-xmax:] = pred_data[i-1]
         while (len(self.axes.lines) > 0):
-            self.axes.lines.pop(0)
+            self.axes.lines[0].remove()
+            #self.axes.lines.pop(0)
         for i in range(self.max_ele+3):
             if i == 0:
                 y = 0
@@ -175,7 +177,8 @@ class MplPeakCanvas(FigureCanvasQTAgg):
 
     def set_mp(self, audio_rate):
         if self.spec_line:
-            self.axes.lines.pop(0)
+            self.axes.lines[0].remove()
+            #self.axes.lines.pop(0)
         self.spec_line = None
         self.axes.set_xlim(0, audio_rate/2)
 
