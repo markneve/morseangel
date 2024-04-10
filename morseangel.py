@@ -184,7 +184,9 @@ class MplPeakCanvas(FigureCanvasQTAgg):
 
     def new_data(self, f, s, maxtab, tone):
         if not self.spec_line:
-            self.spec_line, = self.axes.plot(f[0:int(len(f)/2-1)], abs(s[0:int(len(s)/2-1)]),'g-', color="lime", alpha=0.8)
+            #self.spec_line, = self.axes.plot(f[0:int(len(f)/2-1)], abs(s[0:int(len(s)/2-1)]),'g-', color="lime", alpha=0.8)
+            self.spec_line, = self.axes.plot(f[0:int(len(f) / 2 - 1)], abs(s[0:int(len(s) / 2 - 1)]), 'g-', alpha=0.8)
+
         else:
             self.spec_line.set_data(f[0:int(len(f)/2-1)], abs(s[0:int(len(s)/2-1)]))
         pmax = max(s)

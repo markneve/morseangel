@@ -31,9 +31,24 @@ class AudioDialog(QtWidgets.QDialog):
         self.deviceCombo.blockSignals(True)
         self.deviceCombo.addItems(device_names)
         self.deviceCombo.blockSignals(False)
-        default_device = QtMultimedia.QAudioDeviceInfo.defaultInputDevice()
-        self.default_device_index = audio_devices.index(default_device)
-        self.deviceCombo.setCurrentIndex(self.default_device_index)
+
+        # Find default device index by comparing device names
+        default_device_name = QtMultimedia.QAudioDeviceInfo.defaultInputDevice().deviceName()
+        self.default_device_index = next(
+            (i for i, device in enumerate(audio_devices) if device.deviceName() == default_device_name), -1)
+        if self.default_device_index != -1:
+            self.deviceCombo.setCurrentIndex(self.default_device_index)
+        else:
+            print("Default device not found in audio_devices.")
+    #def set_audio_devices(self, audio_devices):
+    #    self.audio_devices = audio_devices
+    #    device_names = [device.deviceName() for device in audio_devices]
+    #    self.deviceCombo.blockSignals(True)
+    #    self.deviceCombo.addItems(device_names)
+    #    self.deviceCombo.blockSignals(False)
+    #    default_device = QtMultimedia.QAudioDeviceInfo.defaultInputDevice()
+     #   self.default_device_index = audio_devices.index(default_device)
+     #   self.deviceCombo.setCurrentIndex(self.default_device_index)
 
     def device_selected(self):
         self.device_index = self.deviceCombo.currentIndex()
